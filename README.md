@@ -1,73 +1,40 @@
-# The BlissfulBites Cake House 🎂
+# The BlissfulBites Cake House — Frontend
 
-A luxury bakery website for **The BlissfulBites Cake House**, designed with a chocolate-brown, gold, and cream colour palette.
+A responsive, single-page bakery website frontend using HTML, CSS and vanilla JavaScript.
 
-## 🌟 Features
+## Files
+- `index.html` — page structure and content
+- `style.css` — responsive styling and brand design tokens
+- `script.js` — sample cake catalogue, search/filter, cart and WhatsApp enquiry flows
+- `assets/logo.png` — existing logo, if available in the workspace
 
-- Responsive website layout
-- Luxury bakery branding and logo
-- Cake catalogue with product cards
-- Product search and category filters
-- Shopping cart with quantity controls
-- Custom cake enquiry form
-- WhatsApp enquiry integration
-- Contact information and Instagram link
+## Run locally
+1. Extract the ZIP.
+2. Open the folder in VS Code.
+3. Open `index.html` directly, or use the VS Code Live Server extension.
 
-## 🛠️ Technologies Used
+## Before publishing
+- Replace sample cake names, prices and photos with your real products.
+- Verify the logo and all contact details.
+- The sample product prices are illustrative placeholders.
+- The current cart is browser-only and does not save orders to a database.
+- Custom cake forms and checkout open WhatsApp; they do not create a confirmed order.
+- No online payment gateway, customer account, or secure admin dashboard is implemented yet. Those require a backend/database and server-side security.
+- External cake photos and Google Fonts require internet access.
+- Confirm your business hours and pickup policies before publishing.
 
-- HTML5
-- CSS3
-- JavaScript
-- Google Fonts (if configured in the project)
+## Brand palette
+- Chocolate brown: `#4A2418`
+- Luxury gold: `#D4AF5A`
+- Warm cream: `#FFF4E2`
+- Deep brown: `#2D160F`
 
-## 🎨 Brand Identity
+## Contact details in this demo
+The BlissfulBites Cake House  
+Phone: 7057741901  
+Email: theblissfulbitescakehouse@gmail.com  
+Address: Khatri lane near Vittal temple, Dharangaon  
+Instagram: @theblissfulbites.cakehouse
 
-- Chocolate Brown: `#4A2418`
-- Luxury Gold: `#D4AF5A`
-- Cream: `#FFF4E2`
-
-## 📁 Project Structure
-
-```text
-blissfulbites-cake-house/
-├── index.html
-├── style.css
-├── script.js
-├── assets/
-│   └── logo.png
-└── README.md
-```
-
-## 🚀 How to Run Locally
-
-1. Clone or download this repository.
-2. Open the project folder in Visual Studio Code.
-3. Open `index.html` in your browser, or use the Live Server extension.
-
-## 🧁 About the Business
-
-**The BlissfulBites Cake House**
-
-Tagline: *Happiness in Every Bite*
-
-- Phone: 7057741901
-- Email: theblissfulbitescakehouse@gmail.com
-- Address: Khatri Lane, near Vittal Temple, Dharangaon
-- Instagram: [@theblissfulbites.cakehouse](https://www.instagram.com/theblissfulbites.cakehouse/)
-
-## 📌 Project Status
-
-Frontend prototype. Product photos and prices may be placeholders. Database integration, secure admin functionality, and payment processing are not included in this version.
-
-## 🔮 Future Improvements
-
-- Backend and database integration
-- Admin dashboard for managing cakes and orders
-- Persistent shopping cart
-- Order tracking and confirmation
-- Secure online payment integration
-- Product reviews and discount coupons
-
-## 📄 License
-
-No open-source license has been specified. All rights are reserved by default unless a license is added.
+## WhatsApp
+The frontend uses the business number `917057741901` (country code + phone number, digits only) in `script.js`. Change it there if needed.
