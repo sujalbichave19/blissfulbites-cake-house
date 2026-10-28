@@ -13,9 +13,9 @@ const products = [
     price: 699, image: "https://gurgaonbakers.com/wp-content/uploads/2026/04/doraemon-birthday-cake-gurgaon.jpg"
   },
   {
-    id: 3, name: "Elegant Wedding Cake", category: "Wedding", tag: "Made to order",
+    id: 3, name: "Elegant Wedding Cake", category: "Wedding", tag: "Customisable",
     description: "An elegant centrepiece for a beautiful celebration.",
-    price: 2499, image: "https://images.unsplash.com/photo-1535254973040-607b474cb50d?auto=format&fit=crop&w=700&q=80"
+    price: 1399, image: "https://gurgaonbakers.com/wp-content/uploads/2025/10/less-cream-wedding-cake.jpg"
   },
   {
     id: 4, name: "Red Velvet", category: "Birthday", tag: "Customer favourite",
@@ -35,7 +35,7 @@ const products = [
   {
     id: 7, name: "Golden Anniversary", category: "Wedding", tag: "Customisable",
     description: "A refined design for anniversaries and milestone moments.",
-    price: 1399, image: "https://www.justbake.in/uploads1/50th-anniversary-cake-2609300525.jpg?v=1790745933"
+    price: 1799, image: "https://www.justbake.in/uploads1/50th-anniversary-cake-2609300525.jpg?v=1790745933"
   },
   {
     id: 8, name: "Vanilla Cake", category: "Birthday", tag: "Made to order",
@@ -50,7 +50,7 @@ const products = [
   {
     id: 10, name: "Red Velvet", category: "Wedding", tag: "Made to order",
     description: "A light, elegant cake with a timeless celebration style.",
-    price: 699, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyUymLAAtyWU3bKotmMD4yhuQhi52vbPs-5CGdk2jZ_ltOK3rmb0gFy3R&s=10"
+    price: 1399, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyUymLAAtyWU3bKotmMD4yhuQhi52vbPs-5CGdk2jZ_ltOK3rmb0gFy3R&s=10"
   },
   {
     id: 11, name: "Chota Bheem", category: "Birthday", tag: "Customisable",
