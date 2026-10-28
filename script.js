@@ -10,10 +10,10 @@ const products = [
   {
     id: 2, name: "Doremon", category: "Cartoon", tag: "Celebration",
     description: "A cheerful cake for your favourite person's special day.",
-    price: 699, image: "https://gurgaonbakers.com/wp-content/uploads/2026/04/doraemon-birthday-cake-gurgaon.jpg"
+    price: 1199, image: "https://gurgaonbakers.com/wp-content/uploads/2026/04/doraemon-birthday-cake-gurgaon.jpg"
   },
   {
-    id: 3, name: "Elegant Wedding Cake", category: "Wedding", tag: "Customisable",
+    id: 3, name: "Elegant Wedding Cake", category: "Wedding", tag: "Made to order",
     description: "An elegant centrepiece for a beautiful celebration.",
     price: 1399, image: "https://gurgaonbakers.com/wp-content/uploads/2025/10/less-cream-wedding-cake.jpg"
   },
@@ -55,7 +55,7 @@ const products = [
   {
     id: 11, name: "Chota Bheem", category: "Birthday", tag: "Customisable",
     description: "A light, elegant cake with a timeless celebration style.",
-    price: 799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWTEWtcwFdPlVcwQx3wjqsnJSoRX9LCdDHduBwe-QhDUhCH6AkwP4Jqko&s=10"
+    price: 999, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWTEWtcwFdPlVcwQx3wjqsnJSoRX9LCdDHduBwe-QhDUhCH6AkwP4Jqko&s=10"
   },
   {
     id: 12, name: "Rasmalai Cake", category: "Birthday", tag: "Made to order",
