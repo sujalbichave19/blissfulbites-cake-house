@@ -3,14 +3,14 @@ const WHATSAPP_NUMBER = "917057741901"; // India country code + phone number, di
 
 const products = [
   {
-    id: 1, name: "Chocolate Dream Cake", category: "Chocolate", tag: "Bestseller",
+    id: 1, name: "Chocolate Dream Cake", category: "Chocolate", tag: "  Bestseller",
     description: "Rich chocolate layers with a smooth chocolate finish.",
-    price: 699, image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80"
+    price: 349, image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80"
   },
   {
-    id: 2, name: "Classic Celebration", category: "Birthday", tag: "Celebration",
+    id: 2, name: "Doremon", category: "Cartoon", tag: "Celebration",
     description: "A cheerful cake for your favourite person's special day.",
-    price: 799, image: "https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?auto=format&fit=crop&w=700&q=80"
+    price: 699, image: "https://gurgaonbakers.com/wp-content/uploads/2026/04/doraemon-birthday-cake-gurgaon.jpg"
   },
   {
     id: 3, name: "Elegant Wedding Cake", category: "Wedding", tag: "Made to order",
@@ -18,30 +18,51 @@ const products = [
     price: 2499, image: "https://images.unsplash.com/photo-1535254973040-607b474cb50d?auto=format&fit=crop&w=700&q=80"
   },
   {
-    id: 4, name: "Strawberry Blush", category: "Birthday", tag: "Customer favourite",
+    id: 4, name: "Red Velvet", category: "Birthday", tag: "Customer favourite",
     description: "A soft, sweet look inspired by strawberry celebrations.",
-    price: 899, image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=700&q=80"
+    price: 599, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQireF-2boJcMyOfTIiht6c_S9XTN8Ue_BZ6RMV9mjtJh2HZStVeZK-h5G3&s=10"
   },
   {
-    id: 5, name: "Cupcake Moments", category: "Cupcakes", tag: "Box of 6",
+    id: 5, name: "Truffle Overload", category: "Birthday", tag: "Truffle cake",
     description: "A little treat for sharing or gifting someone special.",
-    price: 349, image: "https://images.unsplash.com/photo-1426869884541-df7117556757?auto=format&fit=crop&w=700&q=80"
+    price: 349, image: "https://content2.udora.com/data/flowers/1000x1000/26/1752666268_36818026.jpg"
   },
   {
     id: 6, name: "Midnight Chocolate", category: "Chocolate", tag: "Chocolate lovers",
     description: "A decadent chocolate-inspired design for sweet occasions.",
-    price: 999, image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80"
+    price: 699, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToUjXJQ06tKAT3Zt97muXRa86ylaIlTG0yIhC8iMLY9Ajb3Uz5KJS3kUM&s=10"
   },
   {
     id: 7, name: "Golden Anniversary", category: "Wedding", tag: "Customisable",
     description: "A refined design for anniversaries and milestone moments.",
-    price: 1599, image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=700&q=80"
+    price: 1399, image: "https://www.justbake.in/uploads1/50th-anniversary-cake-2609300525.jpg?v=1790745933"
   },
   {
-    id: 8, name: "Vanilla Garden Cake", category: "Birthday", tag: "Made to order",
+    id: 8, name: "Vanilla Cake", category: "Birthday", tag: "Made to order",
     description: "A light, elegant cake with a timeless celebration style.",
-    price: 749, image: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=700&q=80"
+    price: 299, image: "https://cakthe.com/wp-content/uploads/2026/06/vanilla-cake-recipe-1-1024x576.webp"
+  },
+  {
+    id: 9, name: "Doremon Cake", category: "Cartoon", tag: "Customisable",
+    description: "A light, elegant cake with a timeless celebration style.",
+    price: 599, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrG7f2ud4I7C25N3hvAixhXHz-7iI6YNe1U9T2JkPIIFP7O2F8cpMD0UXq&s=10"
+  },
+  {
+    id: 10, name: "Red Velvet", category: "Wedding", tag: "Made to order",
+    description: "A light, elegant cake with a timeless celebration style.",
+    price: 699, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyUymLAAtyWU3bKotmMD4yhuQhi52vbPs-5CGdk2jZ_ltOK3rmb0gFy3R&s=10"
+  },
+  {
+    id: 11, name: "Chota Bheem", category: "Birthday", tag: "Customisable",
+    description: "A light, elegant cake with a timeless celebration style.",
+    price: 799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWTEWtcwFdPlVcwQx3wjqsnJSoRX9LCdDHduBwe-QhDUhCH6AkwP4Jqko&s=10"
+  },
+  {
+    id: 12, name: "Rasmalai Cake", category: "Birthday", tag: "Made to order",
+    description: "A light, elegant cake with a timeless celebration style.",
+    price: 349, image: "https://bakewithshivesh.com/wp-content/uploads/2021/04/IMG_3929-scaled.jpg"
   }
+
 ];
 
 let activeCategory = "All";
