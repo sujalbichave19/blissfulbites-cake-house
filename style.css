@@ -201,6 +201,7 @@ h1 em, h2 em, h3 em { color: #9C7130; font-weight: 500; }
   .nav-links.open { display: flex; }
   .nav-links > a { padding: 11px 4px; font-size: 12px; border-bottom: 1px solid rgba(229,212,184,.6); }
   .cart-button {display:flex; justify-content: center; padding: 10px; margin-top: px; margin-left: 150px;  }
+  .cart-buttonnew {display:none; justify-content: center; padding: 10px; margin-top: px; margin-left: 150px;  }
   .hero { grid-template-columns: 1fr; padding: 55px 22px 50px; gap: 25px; }
   .hero-copy { max-width: 100%; }.hero-description { max-width: 520px; }
   .hero-art { min-height: 330px; }.hero-image-wrap { width: min(82%, 340px); height: 350px; }.orbit-one { width: 350px; height: 350px; }.orbit-two { width: 400px; height: 400px; }
