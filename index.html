@@ -10,7 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="reviews.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./reviews.css">
 </head>
 <body>
   <div class="announcement">Handcrafted with love in Dharangaon <span>✦</span> Happiness in Every Bite</div>
@@ -128,13 +130,50 @@
       </div>
     </section>
 
-    <section class="story-section section" id="about">
-      <div class="story-mark">✦</div>
-      <p class="eyebrow">A SWEET LITTLE PROMISE</p>
-      <h2>Happiness in <em>Every Bite</em></h2>
-      <p class="story-copy">At The BlissfulBites Cake House, we believe every celebration deserves a little extra sweetness. Explore our cake collection or share your own idea for a cake made for your moment.</p>
-      <a class="text-link" href="#contact">Let’s make something special <span>→</span></a>
-    </section>
+    
+<section id="bb-reviews">
+  <div class="bb-wrap">
+    <div class="bb-heading">
+      <p class="bb-eyebrow">KIND WORDS, SWEET MOMENTS</p>
+      <h2>Made for happy memories</h2>
+      <p class="bb-subtitle">Share your experience with us!</p>
+    </div>
+
+    <div class="bb-review-layout">
+      <div id="bb-review-list" class="bb-review-list">
+        <p>Loading reviews...</p>
+      </div>
+
+      <form id="bb-review-form" class="bb-review-form">
+        <h3>Write a Review</h3>
+
+        <label>Your Rating</label>
+        <div class="bb-star-picker">
+          <button type="button" aria-label="1 star">★</button>
+          <button type="button" aria-label="2 stars">★</button>
+          <button type="button" aria-label="3 stars">★</button>
+          <button type="button" aria-label="4 stars">★</button>
+          <button type="button" aria-label="5 stars">★</button>
+        </div>
+
+        <label for="bb-review-name">Your Name</label>
+        <input id="bb-review-name" name="name"
+          type="text" maxlength="50" required>
+
+        <label for="bb-review-message">Your Review</label>
+        <textarea id="bb-review-message" name="message"
+          minlength="10" maxlength="600" required></textarea>
+
+        <button class="bb-review-submit" type="submit">
+          Submit Review
+        </button>
+
+        <p id="bb-review-status" class="bb-review-status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
 
     <section class="reviews-section">
       <div class="section-heading centered">
@@ -186,5 +225,6 @@
   </aside>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
+  <script type="module" src="reviews.js"></script>
 </body>
 </html>
