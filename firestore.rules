@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // IMPORTANT: Replace REPLACE_WITH_ADMIN_UID with your Firebase Auth admin UID.
+    function isAdmin() {
+      return request.auth != null && request.auth.uid == 'BtE4qXdSNQdHSWgwG5x2DZgXvus2';
+    }
+    match /reviews/{reviewId} {
+      // Visitors can read only approved reviews. Admin can read all reviews.
+      allow read: if isAdmin() || (resource.data.status == 'approved');
+      // Visitors can submit pending reviews only; no client can publish directly.
+      allow create: if request.resource.data.keys().hasAll(['name','message','rating','status','createdAt'])
+        && request.resource.data.keys().hasOnly(['name','message','rating','status','createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 2
+        && request.resource.data.name.size() <= 50
+        && request.resource.data.message is string
+        && request.resource.data.message.size() >= 10
+        && request.resource.data.message.size() <= 600
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1
+        && request.resource.data.rating <= 5
+        && request.resource.data.status == "approved"
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if isAdmin();
+    }
+  }
+}
