@@ -1,4 +1,14 @@
-// Frontend demo only: products/prices are placeholders and no order is stored on a server.
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, doc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { firebaseConfig } from "./firebase-config.js";
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+let signedInUser = null;
+onAuthStateChanged(auth, user => { signedInUser = user; });
+
+// Product catalogue and prices are illustrative; orders are saved to Firebase after customer login.
 const WHATSAPP_NUMBER = "917057741901"; // India country code + phone number, digits only.
 
 const products = [
@@ -66,7 +76,7 @@ const products = [
 ];
 
 let activeCategory = "All";
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("bb_cart") || "[]");
 const productGrid = document.getElementById("productGrid");
 const cartDrawer = document.getElementById("cartDrawer");
 const cartOverlay = document.getElementById("cartOverlay");
@@ -109,7 +119,14 @@ function renderProducts() {
         <p class="product-description">${safeText(p.description)}</p>
         <div class="product-bottom">
           <span class="product-price">${money(p.price)}*</span>
-          <button class="add-button" data-add="${p.id}" aria-label="Add ${safeText(p.name)} to bag">+</button>
+          <button
+  type="button"
+  class="add-button"
+  data-add="${p.id}"
+  aria-label="Add ${safeText(p.name)} to bag"
+>
+  +
+</button>
         </div>
       </div>
     </article>
@@ -136,6 +153,7 @@ function changeQuantity(id, delta) {
   renderCart();
 }
 function renderCart() {
+  localStorage.setItem("bb_cart", JSON.stringify(cart));
   const count = cart.reduce((sum, item) => sum + item.quantity, 0);
   const total = cart.reduce((sum, item) => {
     const product = products.find(p => p.id === item.id);
@@ -179,10 +197,25 @@ function sendWhatsApp(message) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
-productGrid.addEventListener("click", event => {
-  const button = event.target.closest("[data-add]");
-  if (button) addToCart(Number(button.dataset.add));
-});
+if (productGrid) {
+  productGrid.addEventListener("click", function (event) {
+    const button = event.target.closest(".add-button[data-add]");
+
+    if (!button) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const productId = Number(button.dataset.add);
+
+    if (!Number.isFinite(productId)) {
+      console.error("Invalid product ID:", button.dataset.add);
+      return;
+    }
+
+    addToCart(productId);
+  });
+}
 document.getElementById("cakeSearch").addEventListener("input", renderProducts);
 document.getElementById("filterChips").addEventListener("click", event => {
   const button = event.target.closest("[data-category]");
@@ -191,28 +224,48 @@ document.getElementById("filterChips").addEventListener("click", event => {
   document.querySelectorAll(".chip").forEach(chip => chip.classList.toggle("active", chip === button));
   renderProducts();
 });
-document.getElementById("openCart").addEventListener("click", openCart);
+document.querySelectorAll("#openCart").forEach(button => button.addEventListener("click", openCart));
 document.getElementById("closeCart").addEventListener("click", closeCart);
 cartOverlay.addEventListener("click", closeCart);
 cartItems.addEventListener("click", event => {
   const button = event.target.closest("[data-quantity]");
   if (button) changeQuantity(Number(button.dataset.quantity), Number(button.dataset.delta));
 });
-document.getElementById("checkoutWhatsApp").addEventListener("click", () => {
-  if (!cart.length) {
-    showToast("Add a cake to your bag first.");
+document.getElementById("checkoutWhatsApp").addEventListener("click", async () => {
+  if (!cart.length) { showToast("Add a cake to your bag first."); return; }
+  if (!auth.currentUser) {
+    localStorage.setItem("bb_return_to_checkout", "1");
+    window.location.href = "customer.html?next=checkout";
     return;
   }
-  const lines = cart.map(item => {
-    const p = products.find(product => product.id === item.id);
-    return `• ${p.name} × ${item.quantity} — ${money(p.price * item.quantity)}`;
-  });
-  const total = cart.reduce((sum, item) => sum + products.find(p => p.id === item.id).price * item.quantity, 0);
-  const message = `Hello The BlissfulBites Cake House! I'd like to enquire about this order:\n\n${lines.join("\n")}\n\nEstimated subtotal: ${money(total)}\n\nPlease confirm availability, final pricing and pickup arrangements. I understand this is an enquiry, not a confirmed order.`;
-  sendWhatsApp(message);
+  const button = document.getElementById("checkoutWhatsApp");
+  button.disabled = true;
+  try {
+    const user = auth.currentUser;
+    const profileSnap = await getDoc(doc(db, "customers", user.uid));
+    const profile = profileSnap.exists() ? profileSnap.data() : {};
+    const items = cart.map(item => {
+      const p = products.find(product => product.id === item.id);
+      return { productId: String(p.id), name: p.name, unitPrice: p.price, quantity: item.quantity, lineTotal: p.price * item.quantity };
+    });
+    const total = items.reduce((sum, item) => sum + item.lineTotal, 0);
+    const orderRef = await addDoc(collection(db, "orders"), {
+      userId: user.uid, customerName: profile.name || user.displayName || "Customer",
+      customerEmail: user.email || "", customerPhone: profile.phone || "",
+      items, total, currency: "INR", status: "pending", source: "website-cart",
+      createdAt: serverTimestamp(), updatedAt: serverTimestamp()
+    });
+    const lines = items.map(item => `• ${item.name} × ${item.quantity} — ${money(item.lineTotal)}`);
+    const message = `Hello The BlissfulBites Cake House! I have placed website order ${orderRef.id}.\n\n${lines.join("\n")}\n\nEstimated subtotal: ${money(total)}\nName: ${profile.name || user.displayName || "Customer"}\nPhone: ${profile.phone || "Please confirm"}\n\nPlease confirm availability, final pricing and pickup arrangements. This order is pending confirmation.`;
+    cart = []; renderCart(); closeCart(); sendWhatsApp(message);
+  } catch (error) {
+    console.error("Order save failed:", error);
+    showToast(error.code === "permission-denied" ? "Order could not be saved. Check Firebase order rules." : "Could not save your order. Please try again.");
+  } finally { button.disabled = false; }
 });
-document.getElementById("customOrderForm").addEventListener("submit", event => {
+document.getElementById("customOrderForm").addEventListener("submit", async event => {
   event.preventDefault();
+  if (!auth.currentUser) { localStorage.setItem("bb_return_to_checkout", "1"); window.location.href = "customer.html?next=checkout"; return; }
   const data = new FormData(event.currentTarget);
   const message = [
     "Hello The BlissfulBites Cake House! I'd like to enquire about a custom cake.",
@@ -227,7 +280,20 @@ document.getElementById("customOrderForm").addEventListener("submit", event => {
     "",
     "Please confirm availability, final price and pickup arrangements. I understand this is an enquiry, not a confirmed booking."
   ].join("\n");
-  sendWhatsApp(message);
+  try {
+    const user = auth.currentUser;
+    const profileSnap = await getDoc(doc(db, "customers", user.uid));
+    const profile = profileSnap.exists() ? profileSnap.data() : {};
+    await addDoc(collection(db, "orders"), {
+      userId: user.uid, customerName: String(data.get("name") || profile.name || "Customer"),
+      customerEmail: user.email || "", customerPhone: String(data.get("phone") || profile.phone || ""),
+      items: [{ productId: "custom-enquiry", name: "Custom cake enquiry", unitPrice: 0, quantity: 1, lineTotal: 0 }],
+      total: 0, currency: "INR", status: "pending", source: "custom-cake-enquiry",
+      customDetails: { occasion: String(data.get("occasion") || ""), requiredDate: String(data.get("date") || ""), flavour: String(data.get("flavour") || ""), size: String(data.get("size") || ""), details: String(data.get("details") || "") },
+      createdAt: serverTimestamp(), updatedAt: serverTimestamp()
+    });
+    sendWhatsApp(message);
+  } catch (error) { console.error(error); showToast("Could not save enquiry. Please try again."); }
 });
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
